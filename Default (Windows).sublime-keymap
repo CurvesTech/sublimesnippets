@@ -1,0 +1,5 @@
+[
+	{ "keys": ["ctrl+\\"], "command": "toggle_side_bar" },
+	{ "keys": ["ctrl+0"], "command": "hide_menu"},
+	{ "keys": ["ctrl+shift+d"], "command": "goto_definition" }
+]

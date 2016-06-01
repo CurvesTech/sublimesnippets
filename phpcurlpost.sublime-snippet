@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+/**
+ * A post request.
+ * @param string $url url to send the request to.
+ * @param array $params get params to send with the request.
+ * @param array $data optional request body.
+ * @param array $headers optional request headers.
+ */
+public function post($url, $params = null , $data = null, $headers = null) {
+	// if params are present append them onto the url.
+	if(!is_null($params)) {
+		$url .= '?' . http_build_query($params);
+	}
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	// post request options.
+	curl_setopt($ch, CURLOPT_POST, true);
+	if(!is_null($data)) {
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	}
+	// headers.
+	if(!is_null($headers)) {
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	}
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return the response as a string.
+
+	$response = curl_exec($ch);
+
+	if($response === FALSE) {
+		throw new Exception('POST request to the url ' . $url . ' failed.');
+	} else {
+		return $response;
+	}
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<!-- <tabTrigger>hello</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
